@@ -30,6 +30,16 @@
                 // Specifikt fel om nolldivision
                 Console.WriteLine($"Kan inte dividera med noll: {ex.Message}");
             }
+            catch (OverflowException ex)
+            {
+                // Specifikt fel om talet är giltigt men för stort för en int
+                Console.WriteLine($"Talet är för stort: {ex.Message}");
+            }
+            catch (InvalidOperationException ex)
+            {
+                // Vårt eget fel när filen saknar innehåll
+                Console.WriteLine($"Ogiltig operation: {ex.Message}");
+            }
             catch (Exception ex)
             {
                 // Fallback för alla övriga obekanta fel
