@@ -66,6 +66,10 @@
                 int number = int.Parse(line); // Kan ge FormatException
 
                 // Division: kan ge DivideByZeroException
+                // flyttalsdivision med noll ger infinity, så vi kastar undantaget explicit
+                if (number == 0)
+                    throw new DivideByZeroException("Talet i filen är 0, kan inte beräkna 100 / 0.");
+
                 return 100.0 / number;
             }
             catch (FormatException ex)
