@@ -77,13 +77,6 @@
                        // men låta anroparen (t.ex. en högre nivå i applikationen)
                        // bestämma hur man ska återhämta sig.
             }
-            catch (Exception ex)
-            {
-                // Om vi vill ge en mer meningsfull feltyp till anroparen
-                throw new InvalidOperationException(
-                    "Det gick inte att processa filen.",
-                    ex); // InnerException = ursprunglig fel
-            }
         }
     }
 }
