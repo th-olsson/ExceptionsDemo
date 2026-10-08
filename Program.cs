@@ -53,10 +53,10 @@
                 throw new ArgumentException("Filnamn får inte vara tomt eller null.", nameof(fileName));
             }
 
-            StreamReader? reader = null;
             try
             {
-                reader = new StreamReader(fileName);
+                // using ser till att filen alltid stängs, även om ett undantag kastas
+                using var reader = new StreamReader(fileName);
 
                 string? line = reader.ReadLine();
                 if (line == null)
@@ -75,20 +75,14 @@
                 // Vi kan välja att låta metoden "kasta upp" felet
                 throw; // När du i `catch` bara vill logga/analysera,
                        // men låta anroparen (t.ex. en högre nivå i applikationen)
-                       // bestämma hur man ska återhämta sig. 
+                       // bestämma hur man ska återhämta sig.
             }
             catch (Exception ex)
             {
                 // Om vi vill ge en mer meningsfull feltyp till anroparen
                 throw new InvalidOperationException(
-                "Det gick inte att processa filen.",
-                ex); // InnerException = ursprunglig fel
-            }
-            finally
-            {
-                // Garanterad stängning av resurs
-                reader?.Close();
-                Console.WriteLine("finally i ProcessFile: StreamReader stängd.");
+                    "Det gick inte att processa filen.",
+                    ex); // InnerException = ursprunglig fel
             }
         }
     }
